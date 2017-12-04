@@ -1,3 +1,69 @@
-<p>
-  admin works!
-</p>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+
+    <div class="refCompanies" *ngIf="refCompaniesList">
+      <table class="table">
+        <thead class="h">
+          <tr class="h">
+            <th class="h">Name</th>
+            <th class="h">Rate</th>
+            <th class="h">Last Updated at:</th>
+            <th class="h">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="refCompanies" (dblclick)="editRefCompany(refCompany)" *ngFor="let refCompany of refCompaniesList">
+            <ng-container *ngIf="!editRefcompanies.includes(refCompany); else editRC">
+              <td>{{refCompany.name}}</td>
+              <td>{{refCompany.rate}}</td>
+              <td>{{refCompany.date | date:'medium'}}</td>
+            </ng-container>
+
+            <ng-template #editRC>
+              <td>
+                <input type="text" name="name" id="name" (keypress)="submitRefCompany($event, refCompany)" [(ngModel)]="refCompany.name"
+                  placeholder="name" class="form-control">
+              </td>
+              <td>
+                <input type="number" name="rate" id="rate" (keypress)="submitRefCompany($event, refCompany)" [(ngModel)]="refCompany.rate"
+                  placeholder="rate" class="form-control">
+              </td>
+              <td>{{refCompany.date | date:'medium'}}</td>
+            </ng-template>
+
+
+            <td>
+              <button class="btn btn-primary" (click)="editRefCompany(refCompany)">
+                <i class="fa fa-pencil"></i>
+              </button>
+              <button class="btn btn-danger" (click)="deleteRefCompany(refCompany)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <form>
+      <div class="form-row">
+
+        <div class="col-md-5">
+          <input type="text" name="name" id="name" [(ngModel)]="newRefCompany.name" placeholder="name" class="form-control">
+        </div>
+        <div class="col-md-5">
+          <input type="number" name="rate" id="rate" [(ngModel)]="newRefCompany.rate" placeholder="rate" class="form-control">
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-primary" (click)="create()">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-2">
+
+  </div>
+</div>
