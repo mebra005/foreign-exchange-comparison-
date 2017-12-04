@@ -22,8 +22,8 @@ exports.createCompany = async function(req, res, next){
     var Company = {
         name: req.body.name,
         rate: req.body.rate,
-        source: req.body.source,
-        deliveryMethod: req.body.deliveryMethod
+        source: [req.body.source],
+        deliveryMethod: [req.body.deliveryMethod]
     }
 
     try{
@@ -48,8 +48,8 @@ exports.updateCompany = async function(req, res, next){
         id,
         name: req.body.name ? req.body.name : null,
         rate: req.body.rate ? req.body.rate : null,
-        source: req.body.source ? req.body.source : null,
-        deliveryMethod: req.body.deliveryMethod ? req.body.deliveryMethod : null
+        source: [req.body.source] ? [req.body.source] : null,
+        deliveryMethod: [req.body.deliveryMethod] ? [req.body.deliveryMethod] : null
     }
 
     try{
