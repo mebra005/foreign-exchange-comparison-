@@ -1,4 +1,5 @@
 import { RefCompanyService } from './shared/services/refCompany.service';
+import { CompanyService } from './shared/services/company.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -24,7 +25,7 @@ import { HomeComponent } from './home/home.component';
     BrowserAnimationsModule,
     NgbModule.forRoot()
   ],
-  providers: [RefCompanyService],
+  providers: [RefCompanyService, CompanyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

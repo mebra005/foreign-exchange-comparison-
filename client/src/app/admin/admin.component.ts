@@ -1,6 +1,8 @@
+import { CompanyService } from './../shared/services/company.service';
 import { RefCompanyService } from './../shared/services/refCompany.service';
 import { Component, OnInit } from '@angular/core';
 import RefCompany from './../shared/models/refCompany.model';
+import Company from './../shared/models/Company.model';
 import { Response } from '@angular/http';
 
 @Component({
@@ -10,12 +12,16 @@ import { Response } from '@angular/http';
 })
 export class AdminComponent implements OnInit {
 
-  constructor(private _refCompanyService: RefCompanyService) { }
+  constructor(private _refCompanyService: RefCompanyService, private _companyService: CompanyService) { }
 
   public newRefCompany: RefCompany = new RefCompany();
+  public newCompany: Company = new Company();
 
   refCompaniesList: RefCompany[];
   editRefcompanies: RefCompany[] = [];
+
+  companiesList: Company[];
+  editcompanies: Company[] = [];
 
   ngOnInit(): void {
     this._refCompanyService.getRefCompanies()
@@ -23,9 +29,14 @@ export class AdminComponent implements OnInit {
         this.refCompaniesList = refCompanies;
         console.log(refCompanies);
       });
+    this._companyService.getCompanies()
+      .subscribe(companies => {
+        this.companiesList = companies;
+        console.log(companies);
+      });
   }
 
-  create() {
+  createRefCompany() {
     this._refCompanyService.createRefCompany(this.newRefCompany)
       .subscribe((res) => {
         this.refCompaniesList.push(res.data);
@@ -61,6 +72,48 @@ export class AdminComponent implements OnInit {
       this.refCompaniesList.splice(this.refCompaniesList.indexOf(refCompany), 1);
     });
   }
+
+
+  /* Company */
+
+  createCompany() {
+    this._companyService.createCompany(this.newCompany)
+      .subscribe((res) => {
+        this.companiesList.push(res.data);
+        this.newCompany = new Company();
+      });
+  }
+
+  editCompany(company: Company) {
+    console.log(company);
+    if (this.companiesList.includes(company)) {
+      if (!this.editcompanies.includes(company)) {
+        this.editcompanies.push(company);
+      } else {
+        this.editcompanies.splice(this.editcompanies.indexOf(company), 1);
+        this._companyService.editCompany(company).subscribe(res => {
+          console.log('Update Succesful');
+        }, err => {
+          this.editCompany(company);
+          console.error('Update Unsuccesful');
+        });
+      }
+    }
+  }
+
+  submitCompany(event, Company: Company) {
+    if (event.keyCode === 13) {
+      this.editCompany(Company);
+    }
+  }
+
+  deleteCompany(company: Company) {
+    this._companyService.deleteCompany(company._id).subscribe(res => {
+      this.companiesList.splice(this.companiesList.indexOf(company), 1);
+    });
+  }
+
+
 
 
 }
