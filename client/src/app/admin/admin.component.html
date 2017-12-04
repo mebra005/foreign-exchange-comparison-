@@ -1,3 +1,5 @@
+<!-- Reference Company -->
+
 <div class="row">
   <div class="col-md-2"></div>
   <div class="col-md-8">
@@ -58,7 +60,80 @@
           <input type="number" name="rate" id="rate" [(ngModel)]="newRefCompany.rate" placeholder="rate" class="form-control">
         </div>
         <div class="col-md-2">
-          <button type="submit" class="btn btn-primary" (click)="create()">Add</button>
+          <button type="submit" class="btn btn-primary" (click)="createRefCompany()">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-2">
+
+  </div>
+</div>
+
+
+<!-- Company -->
+
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+
+    <div class="companies" *ngIf="companiesList">
+      <table class="table">
+        <thead class="h">
+          <tr class="h">
+            <th class="h">Name</th>
+            <th class="h">Rate</th>
+            <th class="h">Last Updated at:</th>
+            <th class="h">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="companies" (dblclick)="editCompany(company)" *ngFor="let company of companiesList">
+            <ng-container *ngIf="!editcompanies.includes(company); else editRC">
+              <td>{{company.name}}</td>
+              <td>{{company.rate}}</td>
+              <td>{{company.date | date:'medium'}}</td>
+            </ng-container>
+
+            <ng-template #editRC>
+              <td>
+                <input type="text" name="name" id="name" (keypress)="submitCompany($event, company)" [(ngModel)]="company.name"
+                  placeholder="name" class="form-control">
+              </td>
+              <td>
+                <input type="number" name="rate" id="rate" (keypress)="submitCompany($event, company)" [(ngModel)]="company.rate"
+                  placeholder="rate" class="form-control">
+              </td>
+              <td>{{company.date | date:'medium'}}</td>
+            </ng-template>
+
+
+            <td>
+              <button class="btn btn-primary" (click)="editCompany(company)">
+                <i class="fa fa-pencil"></i>
+              </button>
+              <button class="btn btn-danger" (click)="deleteCompany(company)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <form>
+      <div class="form-row">
+
+        <div class="col-md-5">
+          <input type="text" name="name" id="name" [(ngModel)]="newCompany.name" placeholder="name" class="form-control">
+        </div>
+        <div class="col-md-5">
+          <input type="number" name="rate" id="rate" [(ngModel)]="newCompany.rate" placeholder="rate" class="form-control">
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-primary" (click)="createCompany()">Add</button>
         </div>
       </div>
     </form>
