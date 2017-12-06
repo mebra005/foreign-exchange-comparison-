@@ -1,6 +1,12 @@
+import { CompanyService } from './../shared/services/company.service';
+import { RefCompanyService } from './../shared/services/refCompany.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AdminComponent } from './admin.component';
+import { MedianService } from '../shared/services/median.service';
 
 describe('AdminComponent', () => {
   let component: AdminComponent;
@@ -8,7 +14,18 @@ describe('AdminComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminComponent ]
+      declarations: [ AdminComponent ],
+      imports: [
+        BrowserAnimationsModule,
+        HttpClientTestingModule,
+        FormsModule
+      ],
+      providers: [
+        RefCompanyService,
+        CompanyService,
+        MedianService,
+        {provide: Router}
+      ],
     })
     .compileComponents();
   }));

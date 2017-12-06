@@ -1,18 +1,21 @@
+import { MedianService } from './../shared/services/median.service';
 import { CompanyService } from './../shared/services/company.service';
 import { RefCompanyService } from './../shared/services/refCompany.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, AfterViewInit, NgModule } from '@angular/core';
 import RefCompany from './../shared/models/refCompany.model';
 import Company from './../shared/models/Company.model';
 import { Response } from '@angular/http';
+import Median from './../shared/models/median.model';
+
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
 
-  constructor(private _refCompanyService: RefCompanyService, private _companyService: CompanyService) { }
+  constructor(private _refCompanyService: RefCompanyService, private _companyService: CompanyService, private _median: MedianService) { }
 
   public newRefCompany: RefCompany = new RefCompany();
   public newCompany: Company = new Company();
@@ -23,18 +26,42 @@ export class AdminComponent implements OnInit {
   companiesList: Company[];
   editcompanies: Company[] = [];
 
+  medianRate: Median;
+
+
   ngOnInit(): void {
     this._refCompanyService.getRefCompanies()
       .subscribe(refCompanies => {
         this.refCompaniesList = refCompanies;
         console.log(refCompanies);
       });
+
     this._companyService.getCompanies()
       .subscribe(companies => {
         this.companiesList = companies;
         console.log(companies);
       });
+
+    this._median.getMedian()
+      .subscribe(median => {
+        this.medianRate = median;
+        console.log(median);
+      });
+
   }
+
+
+
+
+  ngOnChanges() {
+  //  this.median();
+  }
+
+  ngAfterViewInit() {
+   // this.median();
+  }
+
+
 
   createRefCompany() {
     this._refCompanyService.createRefCompany(this.newRefCompany)
@@ -112,6 +139,15 @@ export class AdminComponent implements OnInit {
       this.companiesList.splice(this.companiesList.indexOf(company), 1);
     });
   }
+
+  median() {
+    this._median.getMedian()
+    .subscribe(median => {
+      this.medianRate = median;
+      console.log(median);
+    });
+  }
+
 
 
 
