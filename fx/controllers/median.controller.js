@@ -2,11 +2,11 @@ var RefCompanyService = require('../services/RefCompany.service')
 var math = require('mathjs');
 
 _this = this
-var rateList = [];
 
 
 exports.getMedian = async function (req, res, next) {
 
+    var rateList = [];
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 10;
 

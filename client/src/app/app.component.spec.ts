@@ -24,7 +24,7 @@ describe('AppComponent', () => {
         RefCompanyService,
         CompanyService,
         MediaDevices,
-        
+
       ],
     }).compileComponents();
   }));

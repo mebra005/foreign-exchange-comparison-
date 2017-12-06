@@ -25,7 +25,6 @@ import { MedianService } from './shared/services/median.service';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     NgbModule.forRoot()
   ],

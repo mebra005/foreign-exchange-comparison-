@@ -54,11 +54,11 @@ export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
 
 
   ngOnChanges() {
-  //  this.median();
+    //  this.median();
   }
 
   ngAfterViewInit() {
-   // this.median();
+    // this.median();
   }
 
 
@@ -141,11 +141,14 @@ export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   median() {
-    this._median.getMedian()
-    .subscribe(median => {
-      this.medianRate = median;
-      console.log(median);
-    });
+    setTimeout(() => {
+      this._median.getMedian()
+        .subscribe(median => {
+          this.medianRate = median;
+          console.log(median);
+        });
+    }, 1000);
+
   }
 
 
