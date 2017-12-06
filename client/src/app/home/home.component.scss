@@ -1,0 +1,13 @@
+.no-border {
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1;
+    border-radius: 0;
+    border-bottom-width: 3px;
+    box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
+  }
+  
+  input { 
+    text-align: center; 
+  }
