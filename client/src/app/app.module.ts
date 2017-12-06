@@ -1,3 +1,5 @@
+import { RouterModule } from '@angular/router';
+import { MoniesService } from './shared/services/fees/monies.service';
 import { RefCompanyService } from './shared/services/refCompany.service';
 import { CompanyService } from './shared/services/company.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -10,6 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
+import { MedianService } from './shared/services/median.service';
 
 @NgModule({
   declarations: [
@@ -22,10 +25,11 @@ import { HomeComponent } from './home/home.component';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     NgbModule.forRoot()
   ],
-  providers: [RefCompanyService, CompanyService],
+  providers: [RefCompanyService, CompanyService, MedianService, MoniesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
