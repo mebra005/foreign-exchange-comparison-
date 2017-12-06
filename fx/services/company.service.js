@@ -53,7 +53,7 @@ exports.updateCompany = async function(company){
     oldCompany.rate = company.rate
     oldCompany.source = company.source
     oldCompany.deliveryMethod = company.deliveryMethod
-
+    oldCompany.date = new Date()
 
     console.log(oldCompany)
 

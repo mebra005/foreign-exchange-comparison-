@@ -48,6 +48,19 @@ export class CompanyService {
             });
     }
 
+
+    findCompany(id: string): Observable<Company> {
+        // Find the object by the id
+        const findUrl = `${this.CompanyUrl}/${id}`;
+        return this.http.get(findUrl)
+            .map(res => {
+                return res as Company;
+            });
+    }
+
+
+
+
     // Default Error handling method.
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only
