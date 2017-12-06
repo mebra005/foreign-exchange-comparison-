@@ -32,6 +32,7 @@ exports.createRefCompany = async function(refCompany){
     }
 }
 
+
 exports.updateRefCompany = async function(refCompany){
     var id = refCompany.id
 
@@ -49,6 +50,7 @@ exports.updateRefCompany = async function(refCompany){
 
     oldRefCompany.name = refCompany.name
     oldRefCompany.rate = refCompany.rate
+    oldRefCompany.date = new Date()
 
 
 
@@ -74,3 +76,4 @@ exports.deleteRefCompany = async function(id){
         throw Error("Error Occured while Deleting the Reference Company")
     }
 }
+
