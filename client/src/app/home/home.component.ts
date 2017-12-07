@@ -31,6 +31,9 @@ export class HomeComponent implements OnInit {
   timeItems: string[] = ['Delivery Time', 'Same Day', 'Less than 2 day', 'Less than 3 day', 'Less than 4 day', 'Less than 5 day'];
   deliveryTime: string = this.timeItems[0];
 
+  currencyItems: string[] = ['Currency', 'MXN', 'PHP'];
+  currency: string = this.currencyItems[0];
+
   medianrate: number;
 
   // transfer rate storage

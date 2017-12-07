@@ -1,4 +1,3 @@
-
 <!--<i class="material-icons">face</i>-->
 
 <form class="text-center">
@@ -20,47 +19,52 @@
       <option *ngFor="let i of timeItems" [value]="i">{{i}}</option>
     </select>
   </div>
+  <div class="form-group">
+    <select class="custom-select no-border" id="inlineFormCustomSelect" [(ngModel)]="currency" name="currency">
+      <option *ngFor="let i of currencyItems" [value]="i">{{i}}</option>
+    </select>
+  </div>
 
   <button type="submit" class="btn btn-primary" (click)="calculateRates();">Submit</button>
 </form>
 
 <div class="row" style="margin-top: 3%;">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-  
-      <div class="companies" *ngIf="companiesList">
-        <table class="table">
-          <thead class="h">
-            <tr class="h">
-              <th class="h">Name</th>
-              <th class="h">They get</th>
-              <th class="h">Fee</th>
-              <th class="h">True cost</th>
-              <th class="h">Process</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="companies" *ngFor="let company of companiesList">
-              <ng-container>
-                <td>{{company.name}}</td>
-                <td>{{moniesfx}}</td>
-                <td></td>
-                <td></td>
-              </ng-container>
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
 
-              <td>
-                <button class="btn btn-success" (click)="monies(amount, company);">
-                  <i class="fa fa-check"></i>
-                </button>
-              </td>
-  
-            </tr>
-          </tbody>
-        </table>
-      </div>
-  
+    <div class="companies" *ngIf="companiesList">
+      <table class="table">
+        <thead class="h">
+          <tr class="h">
+            <th class="h">Name</th>
+            <th class="h">They get</th>
+            <th class="h">Fee</th>
+            <th class="h">True cost</th>
+            <th class="h">Process</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="companies" *ngFor="let company of companiesList">
+            <ng-container>
+              <td>{{company.name}}</td>
+              <td>{{moniesfx}}</td>
+              <td></td>
+              <td></td>
+            </ng-container>
+
+            <td>
+              <button class="btn btn-success" (click)="monies(amount, company);">
+                <i class="fa fa-check"></i>
+              </button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="col-md-2">
-  
-    </div>
+
   </div>
+  <div class="col-md-2">
+
+  </div>
+</div>
