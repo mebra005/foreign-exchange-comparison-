@@ -9,7 +9,9 @@
   </div>
   <div class="col-md-2"></div>
 </div>
-
+<button class="btn btn-success" (click)="update()">
+    <i class="fa fa-spinner"></i>
+  </button>
 
 <div class="row" style="margin-top: 3%; margin-bottom: 3%;">
   <div class="col-md-2"></div>
@@ -43,8 +45,7 @@
                   placeholder="rate" class="form-control">
               </td>
               <td>
-                <input name="date" id="date" (keypress)="submitRefCompany($event, refCompany); median()" [(ngModel)]="refCompany.date" class="form-control"
-                  disabled>
+                {{refCompany.date}}
               </td>
             </ng-template>
 
@@ -116,7 +117,7 @@
           <tr class="companies" (dblclick)="editCompany(company)" *ngFor="let company of companiesList">
             <ng-container *ngIf="!editcompanies.includes(company); else editC">
               <td>{{company.name}}</td>
-              <td>{{company.rate}}</td>
+              <td>{{company.currency.mxn}}</td>
               <td>{{company.date | date:'medium'}}</td>
             </ng-container>
 
@@ -126,7 +127,7 @@
                   class="form-control">
               </td>
               <td>
-                <input type="number" name="rate" id="rate" (keypress)="submitCompany($event, company)" [(ngModel)]="company.rate" placeholder="rate"
+                <input type="number" name="currency" id="currency" (keypress)="submitCompany($event, company)" [(ngModel)]="company.currency" placeholder="rate"
                   class="form-control">
               </td>
               <td>{{company.date | date:'medium'}}</td>
@@ -155,7 +156,7 @@
           <input type="text" name="name" id="name" [(ngModel)]="newCompany.name" placeholder="name" class="form-control">
         </div>
         <div class="col-md-5">
-          <input type="number" name="rate" id="rate" [(ngModel)]="newCompany.rate" placeholder="rate" class="form-control">
+          <input type="number" name="mxn" id="mxn" [(ngModel)]="newCompany.currency.mxn" placeholder="rate" class="form-control">
         </div>
         <div class="col-md-2">
           <button type="submit" class="btn btn-primary" (click)="createCompany()">Add</button>

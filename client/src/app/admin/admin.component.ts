@@ -6,7 +6,7 @@ import RefCompany from './../shared/models/refCompany.model';
 import Company from './../shared/models/Company.model';
 import { Response } from '@angular/http';
 import Median from './../shared/models/median.model';
-
+import Currency from './../shared/models/currency.model';
 
 @Component({
   selector: 'app-admin',
@@ -15,7 +15,9 @@ import Median from './../shared/models/median.model';
 })
 export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
 
-  constructor(private _refCompanyService: RefCompanyService, private _companyService: CompanyService, private _median: MedianService) { }
+  constructor(private _refCompanyService: RefCompanyService, private _companyService: CompanyService, private _median: MedianService) {
+
+   }
 
   public newRefCompany: RefCompany = new RefCompany();
   public newCompany: Company = new Company();
@@ -27,6 +29,8 @@ export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
   editcompanies: Company[] = [];
 
   medianRate: Median;
+
+
 
 
   ngOnInit(): void {
@@ -48,13 +52,27 @@ export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
         console.log(median);
       });
 
+
+  }
+
+  update() {
+    this._refCompanyService.getRefCompanies()
+    .subscribe(refCompanies => {
+      this.refCompaniesList = refCompanies;
+    });
+
+  this._companyService.getCompanies()
+    .subscribe(companies => {
+      this.companiesList = companies;
+    });
+
   }
 
 
 
 
   ngOnChanges() {
-    //  this.median();
+
   }
 
   ngAfterViewInit() {
