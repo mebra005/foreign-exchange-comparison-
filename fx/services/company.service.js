@@ -20,9 +20,13 @@ exports.createCompany = async function(company){
 
     var newCompany = new Company({
         name: company.name,
-        rate: company.rate,
+        currency: {
+            mxn: company.currency.mxn,
+            php: company.currency.php
+        },
         source: company.source,
         deliveryMethod: company.deliveryMethod,
+        maxLimit: company.maxLimit,
         date: new Date()
     })
 
@@ -50,7 +54,9 @@ exports.updateCompany = async function(company){
     console.log(oldCompany)
 
     oldCompany.name = company.name
-    oldCompany.rate = company.rate
+    oldCompany.maxLimit = company.maxLimit
+    oldCompany.currency.mxn = company.currency.mxn
+    oldCompany.currency.php = company.currency.php
     oldCompany.source = company.source
     oldCompany.deliveryMethod = company.deliveryMethod
     oldCompany.date = new Date()
