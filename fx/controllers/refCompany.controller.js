@@ -21,7 +21,10 @@ exports.getRefCompanies = async function(req, res, next){
 exports.createRefCompany = async function(req, res, next){
     var refCompany = {
         name: req.body.name,
-        rate: req.body.rate
+        currency: {
+            mxn: req.body.currency.mxn,
+            php: req.body.currency.php
+        }
     }
 
     try{
@@ -45,7 +48,10 @@ exports.updateRefCompany = async function(req, res, next){
     var refCompany = {
         id,
         name: req.body.name ? req.body.name : null,
-        rate: req.body.rate ? req.body.rate : null
+        currency: {
+            mxn: req.body.currency.mxn ? req.body.currency.mxn : null,
+            php: req.body.currency.php ? req.body.currency.php : null,
+        }
     }
 
     try{
