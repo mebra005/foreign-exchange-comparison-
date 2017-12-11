@@ -5,8 +5,8 @@ class Currency {
 
     constructor(
     ) {
-        this.mxn = 0;
-        this.php = 0;
+        this.mxn = null;
+        this.php = null;
     }
 }
 
