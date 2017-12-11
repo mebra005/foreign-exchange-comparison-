@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { MedianService } from '../shared/services/median.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('AdminComponent', () => {
   let component: AdminComponent;
@@ -18,7 +19,8 @@ describe('AdminComponent', () => {
       imports: [
         BrowserAnimationsModule,
         HttpClientTestingModule,
-        FormsModule
+        FormsModule,
+        NgbModule.forRoot(),
       ],
       providers: [
         RefCompanyService,

@@ -15,9 +15,12 @@ import Currency from './../shared/models/currency.model';
 })
 export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
 
+
+
+
   constructor(private _refCompanyService: RefCompanyService, private _companyService: CompanyService, private _median: MedianService) {
 
-   }
+  }
 
   public newRefCompany: RefCompany = new RefCompany();
   public newCompany: Company = new Company();
@@ -30,8 +33,17 @@ export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
 
   medianRate: Median;
 
+  currencyList: string[] = ['MXN', 'PHP'];
+  selectedCurrency: string = this.currencyList[0];
 
 
+  delTempList: string[] = [];
+  sourceTempList: string[] = [];
+
+  currentCurrency: number;
+  newCurrency: number;
+
+  spinner: boolean;
 
   ngOnInit(): void {
     this._refCompanyService.getRefCompanies()
@@ -45,11 +57,12 @@ export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
         this.companiesList = companies;
         console.log(companies);
       });
-
+      this.spinner = true;
     this._median.getMedian()
       .subscribe(median => {
         this.medianRate = median;
         console.log(median);
+        this.spinner = false;
       });
 
 
@@ -57,19 +70,16 @@ export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
 
   update() {
     this._refCompanyService.getRefCompanies()
-    .subscribe(refCompanies => {
-      this.refCompaniesList = refCompanies;
-    });
+      .subscribe(refCompanies => {
+        this.refCompaniesList = refCompanies;
+      });
 
-  this._companyService.getCompanies()
-    .subscribe(companies => {
-      this.companiesList = companies;
-    });
+    this._companyService.getCompanies()
+      .subscribe(companies => {
+        this.companiesList = companies;
+      });
 
   }
-
-
-
 
   ngOnChanges() {
 
@@ -78,7 +88,6 @@ export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
   ngAfterViewInit() {
     // this.median();
   }
-
 
 
   createRefCompany() {
@@ -106,9 +115,11 @@ export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
+
   submitRefCompany(event, refCompany: RefCompany) {
     if (event.keyCode === 13) {
       this.editRefCompany(refCompany);
+      this.median();
     }
   }
 
@@ -120,7 +131,6 @@ export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
 
 
   /* Company */
-
   createCompany() {
     this._companyService.createCompany(this.newCompany)
       .subscribe((res) => {
@@ -159,11 +169,13 @@ export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   median() {
+    this.spinner = true;
     setTimeout(() => {
       this._median.getMedian()
         .subscribe(median => {
           this.medianRate = median;
           console.log(median);
+          this.spinner = false;
         });
     }, 1000);
 
@@ -171,6 +183,19 @@ export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
 
 
 
+  addDelMthd(method: string) {
+    if (this.newCompany.deliveryMethod['0'] === '') {
+      this.newCompany.deliveryMethod.shift();
+    }
+    this.newCompany.deliveryMethod.push(method);
+  }
+
+  addSource(source: string) {
+    if (this.newCompany.source['0'] === '') {
+      this.newCompany.source.shift();
+    }
+    this.newCompany.source.push(source);
+  }
 
 
 }
