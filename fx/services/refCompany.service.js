@@ -20,7 +20,10 @@ exports.createRefCompany = async function(refCompany){
 
     var newRefCompany = new RefCompany({
         name: refCompany.name,
-        rate: refCompany.rate,
+        currency: {
+            mxn: refCompany.currency.mxn,
+            php: refCompany.currency.php
+        },
         date: new Date()
     })
 
@@ -49,7 +52,8 @@ exports.updateRefCompany = async function(refCompany){
     console.log(oldRefCompany)
 
     oldRefCompany.name = refCompany.name
-    oldRefCompany.rate = refCompany.rate
+    oldRefCompany.currency.mxn = refCompany.currency.mxn
+    oldRefCompany.currency.php = refCompany.currency.php
     oldRefCompany.date = new Date()
 
 
