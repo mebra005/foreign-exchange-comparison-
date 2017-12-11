@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   sourceItems: string[] = ['Soure of funding...', 'Debit Card', 'Credit Card', 'Bank Account'];
   soureOfFunding: string = this.sourceItems[0];
 
-  deliveryItems: string[] = ['Delivery Method...', 'Debit Card', 'Debit Card', 'Bank Account'];
+  deliveryItems: string[] = ['Delivery Method...', 'Debit Card', 'Agent', 'Bank Account'];
   deliveryMethod: string = this.deliveryItems[0];
 
 
