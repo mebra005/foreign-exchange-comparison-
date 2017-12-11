@@ -1,13 +1,15 @@
+import Currency from './currency.model';
+
 class RefCompany {
     _id: string;
     name: string;
-    rate: number;
+    currency: Currency;
     date: Date;
 
     constructor(
     ) {
         this.name = '';
-        this.rate = 0;
+        this.currency = new Currency();
         this.date = new Date();
     }
 }

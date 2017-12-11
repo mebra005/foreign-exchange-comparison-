@@ -1,9 +1,11 @@
 class Median {
-    rate: number;
+    mxn: number;
+    php: number;
 
     constructor(
     ) {
-        this.rate = 0;
+        this.mxn = 0;
+        this.php = 0;
     }
 }
 

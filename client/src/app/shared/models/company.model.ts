@@ -5,8 +5,8 @@ class Company {
     _id: string;
     name: string;
     maxLimit: number;
-    source: [string];
-    deliveryMethod: [string];
+    source: string[];
+    deliveryMethod: string[];
     currency: Currency;
     date: Date;
 
