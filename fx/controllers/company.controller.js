@@ -1,5 +1,5 @@
 var CompanyService = require('../services/company.service')
-
+var Company = require('../models/company.model')
 _this = this
 
 
@@ -81,3 +81,27 @@ exports.removeCompany = async function (req, res, next) {
     }
 
 }
+
+exports.getCompanyByID = async function (req, res, next) {
+    var id = req.params.id;
+
+    try {
+        var findCompany = await CompanyService.findCompanyByID(id)
+        return res.status(200).json({ status: 200, data: findCompany, message: "Succesfully found the Company by id" })
+    } catch (e) {
+        return res.status(400).json({ status: 400., message: e.message })
+    }
+
+}
+
+exports.getCompanyByName = async function (req, res, next) {
+    Company.find({name: req.params.name}, function(err, result){
+        if(err)
+        {
+            res.json(err);
+        }
+        else{
+            res.json(result);
+        }
+    });
+};

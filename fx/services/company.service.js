@@ -83,3 +83,17 @@ exports.deleteCompany = async function(id){
         throw Error("Error Occured while Deleting the Company")
     }
 }
+
+
+exports.findCompanyByID = async function(id){
+
+    try{
+        var findCompany = await Company.findById(id);
+        return findCompany;
+    }catch(e){
+        throw Error("Error occured while Finding the Company")
+    }
+}
+
+
+
