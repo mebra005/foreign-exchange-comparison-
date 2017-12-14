@@ -6,12 +6,12 @@ _this = this
 var feeIncludedBoolean = false;
 var feeIncluded = '';
 var youPay = 0;
-var fee = 4.99;
+var fee = 3.99;
 var trueCost = 0;
 var trueCostPercentage = 0;
-const MONIES_ID = '5a32b716a2aee00f70efa35e'
-const CREDIT_CHARGE = 0;  // to be determined
-const AGENT_CASHOUT = 0;  // to be determined 
+const SHAREDMONEY_ID = '5a32c4d07dcf541fac579867'
+const CREDIT_CHARGE = 0.03;
+
 
 
 exports.calculateStats = async function (userInputs) {
@@ -19,7 +19,7 @@ exports.calculateStats = async function (userInputs) {
     var limit = 10;
 
     var median = await MedianService.median({}, page, limit);
-    var company = await CompanyService.findCompanyByID(MONIES_ID)
+    var company = await CompanyService.findCompanyByID(SHAREDMONEY_ID)
 
 
     // Validation
@@ -29,10 +29,10 @@ exports.calculateStats = async function (userInputs) {
 
 
         // Calculate fees
-        if (userInputs.source == 'credit card') {
-            _this.fee = fee + (userInputs.amount * CREDIT_CHARGE);
-        } else {
+        if (userInputs.source == 'Debit Card') {
             _this.fee = fee;
+        } else {
+            _this.fee = (userInputs.amount * CREDIT_CHARGE) + 2.99;
         }
 
         // checks to see if the fee is included in the amount the user pays or user has to pay fees on top of the amount.

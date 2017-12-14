@@ -2,7 +2,7 @@
 
 <form class="text-center">
   <div class="form-group col-3 no-border input-lg" style="margin:auto; margin-bottom:2%">
-    <input type="number" class="form-control no-border" [(ngModel)]="amount" name="amount" placeholder="Amount" style="font-size: 35px; font-style: bold;">
+    <input type="number" class="form-control no-border" [(ngModel)]="amount"  min="0.01" name="amount" placeholder="Amount" style="font-size: 35px; font-style: bold;">
   </div>
   <div class="form-group">
     <select class="custom-select  no-border" id="inlineFormCustomSelect" [(ngModel)]="soureOfFunding" name="soureOfFunding">

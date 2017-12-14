@@ -6,33 +6,39 @@ _this = this
 var feeIncludedBoolean = false;
 var feeIncluded = '';
 var youPay = 0;
-var fee = 4.99;
+var fee = 4.99; // less than 300
 var trueCost = 0;
 var trueCostPercentage = 0;
-const MONIES_ID = '5a32b716a2aee00f70efa35e'
-const CREDIT_CHARGE = 0;  // to be determined
-const AGENT_CASHOUT = 0;  // to be determined 
-
+const TRANSFERWISE_ID = '5a32c4387dcf541fac579863'
+const LESS_THAN_2800 = 0.0259; // 350 < amount < 2800
+const MORE_THAN_2800 = 75.99; // amount > 2800
 
 exports.calculateStats = async function (userInputs) {
     var page = 1
     var limit = 10;
 
     var median = await MedianService.median({}, page, limit);
-    var company = await CompanyService.findCompanyByID(MONIES_ID)
+    var company = await CompanyService.findCompanyByID(TRANSFERWISE_ID)
 
 
-    // Validation
+    // Validation for source of funding, delivery method, Maximum limit
     if (!(company.deliveryMethod.includes(userInputs.deliveryMethod) && company.source.includes(userInputs.source)) || userInputs.amount > company.maxLimit) {
         return
     } else {
 
-
         // Calculate fees
-        if (userInputs.source == 'credit card') {
-            _this.fee = fee + (userInputs.amount * CREDIT_CHARGE);
-        } else {
+        if (userInputs.source == 'Bank Account') {
             _this.fee = fee;
+        } else if (userInputs.amount > 350 && userInputs.amount <= 2800) {
+            _this.fee = userInputs.amount * LESS_THAN_2800;
+        } else if (userInputs.amount > 2800) {
+            _this.fee = MORE_THAN_2800;
+        } else if (userInputs.amount <= 250) {
+            _this.fee = 4.99;
+        } else if (userInputs.amount > 250 && userInputs.amount <= 300) {
+            _this.fee = 8.99;
+        } else if (userInputs.amount > 300 && userInputs.amount <= 350) {
+            _this.fee = 9.99;
         }
 
         // checks to see if the fee is included in the amount the user pays or user has to pay fees on top of the amount.
@@ -44,7 +50,7 @@ exports.calculateStats = async function (userInputs) {
             _this.youPay = userInputs.amount;
         }
 
-        //check for currency switch of if statement
+        //check for currency 
         switch (userInputs.currency) {
             //MXN CURRENCY
             case "MXN":
@@ -58,11 +64,9 @@ exports.calculateStats = async function (userInputs) {
                 // Calculates the True Cost Percentage
                 _this.trueCostPercentage = await (_this.trueCost / (_this.youPay - _this.trueCost)) * 100;
 
-
-
                 var result = {
                     youPay: _this.youPay,
-                    theyGet: userInputs.amount * company.currency.mxn,
+                    theyGet: _this.theyGet,
                     fee: _this.fee,
                     feeIncluded: _this.feeIncluded,
                     trueCost: _this.trueCost,
@@ -76,6 +80,7 @@ exports.calculateStats = async function (userInputs) {
                     throw Error('Error while Calculating the FX')
                 }
                 break;
+
             //PHP CURRENCY    
             case "PHP":
 
@@ -86,6 +91,7 @@ exports.calculateStats = async function (userInputs) {
 
                 // Calculates the True Cost Percentage
                 _this.trueCostPercentage = await (_this.trueCost / (_this.youPay - _this.trueCost)) * 100;
+
 
 
 
