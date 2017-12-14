@@ -146,6 +146,18 @@
             <div class="form-row">
               <form>
                 <div class="form-row" style="margin-top: 3%; margin-bottom: 3%;">
+                  <div class="col-md-12" *ngIf="duplicate">
+                    <p>
+                      <ngb-alert [dismissible]="ture" *ngIf="duplicate">
+                        <strong>Warning!</strong> Duplicate company are not allowed.
+                        <p class="float-right" (click)="close()">
+                          <a href="javascript:void(0)">
+                            <strong>X</strong>
+                          </a>
+                        </p>
+                      </ngb-alert>
+                    </p>
+                  </div>
                   <div class="col-md-4">
                     <label>Name *</label>
                     <input type="text" name="name" id="name" [(ngModel)]="newRefCompany.name" placeholder="name" class="form-control" required>
@@ -275,18 +287,31 @@
         <div class="card-body">
           <form>
             <div class="form-row">
+              <div class="col-md-12" *ngIf="duplicate">
+                <p>
+                  <!-- Alert -->
+                  <ngb-alert [dismissible]="ture" *ngIf="duplicateCompany">
+                    <strong>Warning!</strong> Duplicate company are not allowed.
+                    <p class="float-right" (click)="close()">
+                      <a href="javascript:void(0)">
+                        <strong>X</strong>
+                      </a>
+                    </p>
+                  </ngb-alert>
+                </p>
+              </div>
 
               <div class="col-md-3">
                 <label for="exampleInputEmail1">Name</label>
-                <input type="text" name="name" id="name" [(ngModel)]="newCompany.name" placeholder="name" class="form-control">
+                <input type="text" name="name" id="name" [(ngModel)]="newCompany.name" placeholder="name" class="form-control" required>
               </div>
               <div class="col-md-3">
                 <label for="exampleInputEmail1">MXN rate</label>
-                <input type="number" name="mxn" id="mxn" [(ngModel)]="newCompany.currency.mxn" placeholder="MXN rate" class="form-control">
+                <input type="number" name="mxn" id="mxn" [(ngModel)]="newCompany.currency.mxn" placeholder="MXN rate" class="form-control" required>
               </div>
               <div class="col-md-3">
                 <label for="exampleInputEmail1">PHP rate</label>
-                <input type="number" name="mxn" id="mxn" [(ngModel)]="newCompany.currency.php" placeholder="PHP rate" class="form-control">
+                <input type="number" name="mxn" id="mxn" [(ngModel)]="newCompany.currency.php" placeholder="PHP rate" class="form-control" required>
               </div>
               <div class="col-md-3">
                 <label for="exampleInputEmail1">Max Limit</label>
