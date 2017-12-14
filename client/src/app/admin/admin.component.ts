@@ -13,7 +13,9 @@ import Currency from './../shared/models/currency.model';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
+export class AdminComponent implements OnInit {
+  duplicateCompany: boolean;
+
 
 
 
@@ -42,7 +44,7 @@ export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
 
   currentCurrency: number;
   newCurrency: number;
-
+  duplicate: boolean;
   spinner: boolean;
 
   ngOnInit(): void {
@@ -57,7 +59,7 @@ export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
         this.companiesList = companies;
         console.log(companies);
       });
-      this.spinner = true;
+    this.spinner = true;
     this._median.getMedian()
       .subscribe(median => {
         this.medianRate = median;
@@ -68,33 +70,22 @@ export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
 
   }
 
-  update() {
-    this._refCompanyService.getRefCompanies()
-      .subscribe(refCompanies => {
-        this.refCompaniesList = refCompanies;
-      });
-
-    this._companyService.getCompanies()
-      .subscribe(companies => {
-        this.companiesList = companies;
-      });
-
-  }
-
-  ngOnChanges() {
-
-  }
-
-  ngAfterViewInit() {
-    // this.median();
-  }
-
 
   createRefCompany() {
+
+    // Check for duplicate
+    for (const i of this.refCompaniesList) {
+      if (this.newRefCompany.name.toUpperCase() === i.name.toUpperCase()) {
+        this.duplicate = true;
+        console.log('Duplicate reference Company is Not Allowed');
+        return false;
+      }
+    }
     this._refCompanyService.createRefCompany(this.newRefCompany)
       .subscribe((res) => {
         this.refCompaniesList.push(res.data);
         this.newRefCompany = new RefCompany();
+        console.log('Reference Company added successfully');
       });
   }
 
@@ -132,6 +123,17 @@ export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
 
   /* Company */
   createCompany() {
+
+    // Check for duplicate
+    for (const i of this.companiesList) {
+      if (this.newCompany.name.toUpperCase() === i.name.toUpperCase()) {
+        this.duplicateCompany = true;
+        console.log('Duplicate Data Not Allowed');
+        return false;
+      }
+    }
+
+
     this._companyService.createCompany(this.newCompany)
       .subscribe((res) => {
         this.companiesList.push(res.data);
@@ -197,5 +199,9 @@ export class AdminComponent implements OnInit, OnChanges, AfterViewInit {
     this.newCompany.source.push(source);
   }
 
+  // Alert
+  close() {
+    this.duplicate = false;
+  }
 
 }
