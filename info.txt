@@ -1,0 +1,14 @@
+run mongodb:
+"C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe"
+
+inside project dir:
+nodemon
+or node app.js
+
+inside client:
+ng serve
+
+
+
+client: localhost:4200
+server: localhost:3000
