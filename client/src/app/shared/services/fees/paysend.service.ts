@@ -9,10 +9,10 @@ import UserInputs from '../../models/userInputs.model';
 import Statistics from '../../models/statistics.model';
 
 @Injectable()
-export class MoniesService {
+export class PaysendService {
 
     api_url = 'http://localhost:3000';
-    CompanyUrl = `${this.api_url}/api/stats/monies`;
+    CompanyUrl = `${this.api_url}/api/stats/paysend`;
 
     constructor(
         private http: HttpClient
