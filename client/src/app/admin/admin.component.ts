@@ -72,7 +72,6 @@ export class AdminComponent implements OnInit {
 
 
   createRefCompany() {
-
     // Check for duplicate
     for (const i of this.refCompaniesList) {
       if (this.newRefCompany.name.toUpperCase() === i.name.toUpperCase()) {
@@ -128,7 +127,7 @@ export class AdminComponent implements OnInit {
     for (const i of this.companiesList) {
       if (this.newCompany.name.toUpperCase() === i.name.toUpperCase()) {
         this.duplicateCompany = true;
-        console.log('Duplicate Data Not Allowed');
+        console.log('Duplicate Data is Not Allowed');
         return false;
       }
     }
