@@ -6,6 +6,7 @@ _this = this
 var feeIncludedBoolean = false;
 var feeIncluded = '';
 var youPay = 0;
+var sendAmount = 0;
 var fee = 3.99;
 var trueCost = 0;
 var trueCostPercentage = 0;
@@ -39,10 +40,13 @@ exports.calculateStats = async function (userInputs) {
         if (!feeIncludedBoolean) {
             _this.feeIncluded = "No";
             _this.youPay = userInputs.amount + _this.fee;
+            _this.sendAmount = userInputs.amount;
         } else {
             _this.feeIncluded = "Yes"
             _this.youPay = userInputs.amount;
+            _this.sendAmount = userInputs.amount - _this.fee;
         }
+
 
         //check for currency switch of if statement
         switch (userInputs.currency) {
@@ -61,7 +65,9 @@ exports.calculateStats = async function (userInputs) {
 
 
                 var result = {
+                    name: company.name,
                     youPay: _this.youPay,
+                    sendAmount: _this.sendAmount,
                     theyGet: userInputs.amount * company.currency.mxn,
                     fee: _this.fee,
                     feeIncluded: _this.feeIncluded,
@@ -90,7 +96,9 @@ exports.calculateStats = async function (userInputs) {
 
 
                 var result = {
+                    name: company.name,
                     youPay: _this.youPay,
+                    sendAmount: _this.sendAmount,
                     theyGet: _this.theyGet,
                     fee: _this.fee,
                     feeIncluded: _this.feeIncluded,
