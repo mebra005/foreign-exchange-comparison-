@@ -29,7 +29,7 @@ Assuming that the `MongoDb` is installed on your machine.
 ## Start the backend data server
 
 * open a terminal or command window
-* go to the `backend` directory
+* go to the `server` directory
 * run `npm install` (Only the first time)
 * run `nodemon`   OR   run `node app.js`
 
