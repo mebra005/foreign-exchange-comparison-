@@ -111,9 +111,12 @@ export class HomeComponent implements OnInit {
   }
 
 
+
+
+
   // Call each companies service seperatly, add all the seperate responses(Only valid ones) to FXList array to be shown.
   calculateRates() {
-   // this.FXList = [];
+    this.FXList = [];
     this.userInputs.source = this.soureOfFunding;
     this.userInputs.deliveryMethod = this.deliveryMethod;
     this.userInputs.deliveryTime = this.deliveryTime;
@@ -122,116 +125,127 @@ export class HomeComponent implements OnInit {
     // Calls Moneygram Service
     this._moneygramService.getStatistic(this.userInputs)
       .subscribe(moneygramfx => {
-        this.moneygramFX = moneygramfx;
-        if (this.moneygramFX != null) {
-          this.FXList.push(moneygramfx);
-          console.log(moneygramfx);
-        }
+        setTimeout(() => {
+          this.moneygramFX = moneygramfx;
+          if (this.moneygramFX != null) {
+            this.FXList.push(moneygramfx);
+            console.log(moneygramfx);
+          }
+        }, 500);
       });
 
     // Calls Monies Service
     this._moniesService.getStatistic(this.userInputs)
       .subscribe(moniesfx => {
-        this.moniesFX = moniesfx;
-        if (this.moniesFX != null) {
-          this.FXList.push(this.moniesFX);
-          console.log(moniesfx);
-        }
-
+        setTimeout(() => {
+          this.moniesFX = moniesfx;
+          if (this.moniesFX != null) {
+            this.FXList.push(this.moniesFX);
+            console.log(moniesfx);
+          }
+        }, 700);
       });
 
     // Calls ofx Service
     this._ofxService.getStatistic(this.userInputs)
       .subscribe(ofxfx => {
-        this.ofxFX = ofxfx;
-        if (this.ofxFX != null) {
-          this.FXList.push(this.ofxFX);
-          console.log(ofxfx);
-        }
-
+        setTimeout(() => {
+          this.ofxFX = ofxfx;
+          if (this.ofxFX != null) {
+            this.FXList.push(this.ofxFX);
+            console.log(ofxfx);
+          }
+        }, 900);
       });
 
 
     // Calls paysend Service
     this._paysendService.getStatistic(this.userInputs)
       .subscribe(paysendfx => {
-        this.paysendFX = paysendfx;
-        if (this.paysendFX != null) {
-          this.FXList.push(this.paysendFX);
-          console.log(paysendfx);
-        }
-
+        setTimeout(() => {
+          this.paysendFX = paysendfx;
+          if (this.paysendFX != null) {
+            this.FXList.push(this.paysendFX);
+            console.log(paysendfx);
+          }
+        }, 1100);
       });
 
 
     // Calls remitly Service
     this._remitlyService.getStatistic(this.userInputs)
       .subscribe(remitlyfx => {
-        this.remitlyFX = remitlyfx;
-        if (this.remitlyFX != null) {
-          this.FXList.push(this.remitlyFX);
-          console.log(remitlyfx);
-        }
-
+        setTimeout(() => {
+          this.remitlyFX = remitlyfx;
+          if (this.remitlyFX != null) {
+            this.FXList.push(this.remitlyFX);
+            console.log(remitlyfx);
+          }
+        }, 1300);
       });
 
     // Calls sendwyre Service
     this._sendwyreService.getStatistic(this.userInputs)
       .subscribe(sendwyrefx => {
-        this.sendwyreFX = sendwyrefx;
-        if (this.sendwyreFX != null) {
-          this.FXList.push(this.sendwyreFX);
-          console.log(sendwyrefx);
-        }
-
+        setTimeout(() => {
+          this.sendwyreFX = sendwyrefx;
+          if (this.sendwyreFX != null) {
+            this.FXList.push(this.sendwyreFX);
+            console.log(sendwyrefx);
+          }
+        }, 1500);
       });
 
 
     // Calls sharedmoney Service
     this._sharedmoneyService.getStatistic(this.userInputs)
       .subscribe(sharedmoneyfx => {
-        this.sharedmoneyFX = sharedmoneyfx;
-        if (this.sharedmoneyFX != null) {
-          this.FXList.push(this.sharedmoneyFX);
-          console.log(sharedmoneyfx);
-        }
-
+        setTimeout(() => {
+          this.sharedmoneyFX = sharedmoneyfx;
+          if (this.sharedmoneyFX != null) {
+            this.FXList.push(this.sharedmoneyFX);
+            console.log(sharedmoneyfx);
+          }
+        }, 1700);
       });
 
 
     // Calls transferwise Service
     this._transferwiseService.getStatistic(this.userInputs)
       .subscribe(transferwisefx => {
-        this.transferwiseFX = transferwisefx;
-        if (this.transferwiseFX != null) {
-          this.FXList.push(this.transferwiseFX);
-          console.log(transferwisefx);
-        }
-
+        setTimeout(() => {
+          this.transferwiseFX = transferwisefx;
+          if (this.transferwiseFX != null) {
+            this.FXList.push(this.transferwiseFX);
+            console.log(transferwisefx);
+          }
+        }, 1900);
       });
 
 
     // Calls westernunion Service
     this._westernunionService.getStatistic(this.userInputs)
       .subscribe(westernunionfx => {
-        this.westernunionFX = westernunionfx;
-        if (this.westernunionFX != null) {
-          this.FXList.push(this.westernunionFX);
-          console.log(westernunionfx);
-        }
-
+        setTimeout(() => {
+          this.westernunionFX = westernunionfx;
+          if (this.westernunionFX != null) {
+            this.FXList.push(this.westernunionFX);
+            console.log(westernunionfx);
+          }
+        }, 2100);
       });
 
 
     // Calls xoom Service
     this._xoomService.getStatistic(this.userInputs)
       .subscribe(xoomfx => {
-        this.xoomFX = xoomfx;
-        if (this.xoomFX != null) {
-          this.FXList.push(this.xoomFX);
-          console.log(xoomfx);
-        }
-
+        setTimeout(() => {
+          this.xoomFX = xoomfx;
+          if (this.xoomFX != null) {
+            this.FXList.push(this.xoomFX);
+            console.log(xoomfx);
+          }
+        }, 2300);
       });
 
   }
