@@ -31,7 +31,8 @@
     <small id="emailHelp" class="form-text boxLabel" *ngIf= "currency != 'Currency...'">&#10003; Currency</small>
   </div>
 
-  <button type="submit" class="btn btn-primary" (click)="calculateRates()">Submit</button>
+  <button type="submit" class="btn btn-primary" (click)="calculateRates()"
+  [disabled]="userInputs.amount == 0 || soureOfFunding == 'Source of funding...' || deliveryMethod == 'Delivery Method...' || deliveryTime == 'Delivery Time...' || currency == 'Currency...' ">Submit</button>
   <button type="reset" class="btn btn-default" value="Reset">Reset</button>
 </form>
 
