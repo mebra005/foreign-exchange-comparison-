@@ -1,0 +1,366 @@
+<div class="row" *ngIf="medianRate">
+
+  <div class="col-md-1"></div>
+
+
+  <div class="col-md low">
+    <div class="col-md-12">
+      <i class="fa fa-spinner fa-spin" style="font-size:32px;color:white" *ngIf='spinner'></i>
+      <span *ngIf="selectedCurrency == 'MXN' && !spinner">
+        Low: {{medianRate.data.lowMedian.mxn | number:'1.2-4'}}
+      </span>
+      <span *ngIf="selectedCurrency == 'PHP' && !spinner">
+        Low: {{medianRate.data.lowMedian.php | number:'1.2-4'}}
+      </span>
+    </div>
+  </div>
+
+
+  <div class="col-md median">
+    <div class="col-md-12">
+      <i class="fa fa-spinner fa-spin" style="font-size:32px;color:white" *ngIf='spinner'></i>
+      <span *ngIf="selectedCurrency == 'MXN' && !spinner">
+        Median: {{medianRate.data.median.mxn | number:'1.2-4'}}
+      </span>
+      <span *ngIf="selectedCurrency == 'PHP' && !spinner">
+        Median: {{medianRate.data.median.php | number:'1.2-4'}}
+      </span>
+    </div>
+  </div>
+
+
+  <div class="col-md high">
+    <div class="col-md-12">
+      <i class="fa fa-spinner fa-spin" style="font-size:32px;color:white" *ngIf='spinner'></i>
+      <span *ngIf="selectedCurrency == 'MXN' && !spinner">
+        High: {{medianRate.data.highMedian.mxn | number:'1.2-4'}}
+      </span>
+      <span *ngIf="selectedCurrency == 'PHP' && !spinner">
+        High: {{medianRate.data.highMedian.php | number:'1.2-4'}}
+      </span>
+    </div>
+  </div>
+
+
+  <div class="col-md-1"></div>
+
+</div>
+
+<!-- Reference Company -->
+<div class="row" style="margin-top: 3%; margin-bottom: 3%;">
+  <div class="col-md-2"></div>
+  <div class="col-md-4">
+    <h2> Reference Companies</h2>
+  </div>
+  <div class="col-md-4 ">
+    <div class="form-group">
+      <select class="custom-select no-border float-right" id="inlineFormCustomSelect" [(ngModel)]="selectedCurrency" name="selectedCurrency">
+        <option *ngFor="let i of currencyList" [value]="i">{{i}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+
+<div class="row" style="margin-top: 3%; margin-bottom: 2%;">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+
+    <div class="refCompanies" *ngIf="refCompaniesList">
+      <table class="table">
+        <thead class="h">
+          <tr class="h">
+            <th class="h">Name</th>
+            <th class="h">Rate({{selectedCurrency}})</th>
+            <th class="h">Last Updated at:</th>
+            <th class="h">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="refCompanies" (dblclick)="editRefCompany(refCompany)" *ngFor="let refCompany of refCompaniesList">
+            <ng-container *ngIf="!editRefcompanies.includes(refCompany); else editRC">
+              <td>{{refCompany.name}}</td>
+              <td *ngIf="selectedCurrency == 'MXN'">{{refCompany.currency.mxn}}</td>
+              <td *ngIf="selectedCurrency == 'PHP'">{{refCompany.currency.php}}</td>
+              <td>{{refCompany.date | date:'medium'}}</td>
+            </ng-container>
+
+            <ng-template #editRC>
+              <td>
+                <input type="text" name="name" id="name" (keypress)="submitRefCompany($event, refCompany);" [(ngModel)]="refCompany.name"
+                  placeholder="name" class="form-control">
+              </td>
+              <td *ngIf="selectedCurrency == 'MXN'">
+                <input type="number" name="rate" id="rate" (keypress)="submitRefCompany($event, refCompany);" [(ngModel)]="refCompany.currency.mxn"
+                  placeholder="rate" class="form-control">
+              </td>
+              <td *ngIf="selectedCurrency == 'PHP'">
+                <input type="number" name="rate" id="rate" (keypress)="submitRefCompany($event, refCompany);" [(ngModel)]="refCompany.currency.php"
+                  placeholder="rate" class="form-control">
+              </td>
+
+
+              <td>
+                {{refCompany.date}}
+              </td>
+            </ng-template>
+
+
+            <td>
+              <button class="btn btn-primary" (click)="editRefCompany(refCompany); median()">
+                <i class="fa fa-pencil"></i>
+              </button>
+              <button class="btn btn-danger" (click)="deleteRefCompany(refCompany); median()">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-2">
+  </div>
+</div>
+
+
+<!-- Add New Reference Company -->
+<div class="row" style="margin-top: 1%; margin-bottom: 3%;">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <p>
+      <button type="button" class="btn btn-outline-primary" (click)="isCollapsedCompany = !isCollapsedCompany" [attr.aria-expanded]="!isCollapsedCompany"
+        aria-controls="collapseExample">
+        {{ !isCollapsedCompany ? 'Add+' : 'Close'}}
+      </button>
+    </p>
+    <div id="collapseExample" [ngbCollapse]="!isCollapsedCompany">
+      <div class="card">
+        <div class="card-body">
+          <form>
+            <div class="form-row">
+              <form>
+                <div class="form-row" style="margin-top: 3%; margin-bottom: 3%;">
+                  <div class="col-md-12" *ngIf="duplicate">
+                    <p>
+                      <ngb-alert [dismissible]="ture" *ngIf="duplicate">
+                        <strong>Warning!</strong> Duplicate company are not allowed.
+                        <p class="float-right" (click)="close()">
+                          <a href="javascript:void(0)">
+                            <strong>X</strong>
+                          </a>
+                        </p>
+                      </ngb-alert>
+                    </p>
+                  </div>
+                  <div class="col-md-4">
+                    <label>Name *</label>
+                    <input type="text" name="name" id="name" [(ngModel)]="newRefCompany.name" placeholder="name" class="form-control" required>
+                  </div>
+                  <div class="col-md-4">
+                    <label>MXN rate *</label>
+                    <input type="number" name="refmxn" id="refmxm" [(ngModel)]="newRefCompany.currency.mxn" placeholder="MXN" class="form-control"
+                      required>
+                  </div>
+                  <div class="col-md-4">
+                    <label>PHP rate *</label>
+                    <input type="number" name="refphp" id="refphp" [(ngModel)]="newRefCompany.currency.php" placeholder="PHP" class="form-control"
+                      required>
+                  </div>
+                  <div class="col-md-12" style="margin-top: 3%; margin-bottom: 3%;">
+                    <button type="submit" class="btn btn-primary float-right" (click)="createRefCompany(); median()" [disabled]="newRefCompany.currency.mxn == 0 || !newRefCompany.name || newRefCompany.currency.php == 0 || !newRefCompany.currency.mxn|| !newRefCompany.currency.php">Add</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+
+
+<!-- Company -->
+<div class="row" style="margin-top: 3%; margin-bottom: 1%;">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <h2> Companies</h2>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+
+
+
+<div class="row" style="margin-bottom: 2%;">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+
+    <div class="companies" *ngIf="companiesList">
+      <table class="table">
+        <thead class="h">
+          <tr class="h">
+            <th class="h">Name</th>
+            <th class="h">Rate({{selectedCurrency}})</th>
+            <th class="h">Last Updated at:</th>
+            <th class="h">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="companies" (dblclick)="editCompany(company)" *ngFor="let company of companiesList">
+            <ng-container *ngIf="!editcompanies.includes(company); else editC">
+              <td>{{company.name}}</td>
+              <td *ngIf="selectedCurrency == 'MXN'">{{company.currency.mxn}}</td>
+              <td *ngIf="selectedCurrency == 'PHP'">{{company.currency.php}}</td>
+              <td>{{company.date | date:'medium'}}</td>
+            </ng-container>
+
+            <ng-template #editC>
+              <td>
+                <input type="text" name="name" id="name" (keypress)="submitCompany($event, company)" [(ngModel)]="company.name" placeholder="name"
+                  class="form-control">
+              </td>
+              <td *ngIf="selectedCurrency == 'MXN'">
+                <input type="number" name="currency" id="mxn" (keypress)="submitCompany($event, company)" [(ngModel)]="company.currency.mxn"
+                  placeholder="rate" class="form-control">
+              </td>
+              <td *ngIf="selectedCurrency == 'PHP'">
+                <input type="number" name="currency" id="php" (keypress)="submitCompany($event, company)" [(ngModel)]="company.currency.php"
+                  placeholder="rate" class="form-control">
+              </td>
+              <td>{{company.date | date:'medium'}}</td>
+            </ng-template>
+
+
+            <td>
+              <button class="btn btn-primary" (click)="editCompany(company)">
+                <i class="fa fa-pencil"></i>
+              </button>
+              <button class="btn btn-danger" (click)="deleteCompany(company)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-2">
+  </div>
+</div>
+
+
+
+<!-- Add New Company -->
+<div class="row" style="margin-top: 1%; margin-bottom: 3%;">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <p>
+      <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+        aria-controls="collapseExample">
+        {{ !isCollapsed ? 'Add+' : 'Close'}}
+      </button>
+    </p>
+    <div id="collapseExample" [ngbCollapse]="!isCollapsed">
+      <div class="card">
+        <div class="card-body">
+          <form>
+            <div class="form-row">
+              <div class="col-md-12" *ngIf="duplicate">
+                <p>
+                  <!-- Alert -->
+                  <ngb-alert [dismissible]="ture" *ngIf="duplicateCompany">
+                    <strong>Warning!</strong> Duplicate company are not allowed.
+                    <p class="float-right" (click)="close()">
+                      <a href="javascript:void(0)">
+                        <strong>X</strong>
+                      </a>
+                    </p>
+                  </ngb-alert>
+                </p>
+              </div>
+
+              <div class="col-md-3">
+                <label for="exampleInputEmail1">Name</label>
+                <input type="text" name="name" id="name" [(ngModel)]="newCompany.name" placeholder="name" class="form-control" required>
+              </div>
+              <div class="col-md-3">
+                <label for="exampleInputEmail1">MXN rate</label>
+                <input type="number" name="mxn" id="mxn" [(ngModel)]="newCompany.currency.mxn" placeholder="MXN rate" class="form-control" required>
+              </div>
+              <div class="col-md-3">
+                <label for="exampleInputEmail1">PHP rate</label>
+                <input type="number" name="mxn" id="mxn" [(ngModel)]="newCompany.currency.php" placeholder="PHP rate" class="form-control" required>
+              </div>
+              <div class="col-md-3">
+                <label for="exampleInputEmail1">Max Limit</label>
+                <input type="number" name="mxn" id="mxn" [(ngModel)]="newCompany.maxLimit" placeholder="Max Limit" class="form-control">
+              </div>
+              <div class="col-md-6" style="margin-top: 2%;">
+                <label for="exampleInputEmail1">
+                  <strong>Source of funding</strong>
+                </label>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [checked]="sourceTempList['0']" (change)="addSource('Bank account')"> Bank Account
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [checked]="sourceTempList['1']" (change)="addSource('Debit Card')"> Debit Card
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [checked]="sourceTempList['2']" (change)="addSource('Credit Card')"> Credit Card
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-6" style="margin-top: 2%;">
+                <label for="exampleInputEmail1">
+                  <strong>Delivery Method</strong>
+                </label>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [checked]="delTempList['0']" (change)="addDelMthd('Bank account')"> Bank Account
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [checked]="delTempList['1']" (change)="addDelMthd('Debit Card')"> Debit Card
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [checked]="delTempList['2']" (change)="addDelMthd('Agent')"> Agent
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-12" style="margin-top: 3%; margin-bottom: 3%;">
+                <button type="submit" class="btn btn-primary float-right" (click)="createCompany();">Add</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2"></div>
+</div>

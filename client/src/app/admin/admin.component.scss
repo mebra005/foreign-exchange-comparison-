@@ -1,0 +1,56 @@
+.btn{
+    cursor: pointer;
+}
+
+td{
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.ng-valid[required], .ng-valid.required  {
+    border: 2px solid #42A948; /* green */
+  }
+  
+  .ng-invalid:not(form)  {
+    border: 2px solid #a94442; /* red */
+  }
+
+
+  .low{
+    background-color: rgb(114, 168, 230);
+    min-height: 100px;
+    margin-right: 25px;
+    margin-left: 25px;
+    margin-top: 25px;
+    color: white;
+    text-align: center;
+    padding-top: 35px;
+    border-radius: 8px;
+    font-size: 20px;
+}
+
+.median{
+    background-color: rgb(45, 182, 27);
+    min-height: 100px;
+    margin-right: 25px;
+    margin-left: 25px;
+    margin-top: 25px;
+    color: rgb(252, 252, 252);
+    text-align: center;
+    padding-top: 35px;
+    border-radius: 8px;
+    font-size: 20px;
+}
+
+.high{
+    background-color: rgb(235, 94, 69);
+    min-height: 100px;
+    margin-right: 25px;
+    margin-left: 25px;
+    margin-top: 25px;
+    color: white;
+    text-align: center;
+    padding-top: 35px;
+    border-radius: 8px;
+    font-size: 20px;
+}
