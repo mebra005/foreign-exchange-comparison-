@@ -2,45 +2,44 @@
 
 <form class="text-center" id="FXform">
   <div class="form-group col-3 no-border input-lg" style="margin:auto; margin-bottom:2%">
-    <input type="number" class="form-control no-border" [(ngModel)]="userInputs.amount" min="0.01" name="amount" placeholder="Amount"
+    <input type="number" class="form-control no-border" [(ngModel)]="userInputs.amount" min="0" step="any" name="amount" placeholder="Amount"
       style="font-size: 35px; font-style: bold;" required>
-      <small id="emailHelp" class="form-text boxLabel"  *ngIf= "userInputs.amount != 0 && !userInputs.amount">&#10003; Amount</small>
+    <small id="emailHelp" class="form-text boxLabel" *ngIf="userInputs.amount > 0">&#10003; Amount</small>
   </div>
   <div class="form-group">
     <select class="custom-select  no-border" id="inlineFormCustomSelect" [(ngModel)]="soureOfFunding" name="soureOfFunding">
       <option *ngFor="let i of sourceItems" [value]="i">{{i}}</option>
     </select>
-    <small id="emailHelp" class="form-text boxLabel"  *ngIf= "soureOfFunding != 'Source of funding...'">&#10003; Source of funding</small>
+    <small id="emailHelp" class="form-text boxLabel" *ngIf="soureOfFunding != 'Source of funding...'">&#10003; Source of funding</small>
   </div>
   <div class="form-group">
     <select class="custom-select  no-border" id="inlineFormCustomSelect" [(ngModel)]="deliveryMethod" name="deliveryMethod">
       <option *ngFor="let i of deliveryItems" [value]="i">{{i}}</option>
     </select>
-    <small id="emailHelp" class="form-text boxLabel"  *ngIf= "deliveryMethod != 'Delivery Method...'">&#10003; Delivery Method</small>
+    <small id="emailHelp" class="form-text boxLabel" *ngIf="deliveryMethod != 'Delivery Method...'">&#10003; Delivery Method</small>
   </div>
   <div class="form-group">
     <select class="custom-select no-border" id="inlineFormCustomSelect" [(ngModel)]="deliveryTime" name="deliveryTime">
       <option *ngFor="let i of timeItems" [value]="i">{{i}}</option>
     </select>
-    <small id="emailHelp" class="form-text boxLabel" *ngIf= "deliveryTime != 'Delivery Time...'">&#10003; Delivery Time</small>
+    <small id="emailHelp" class="form-text boxLabel" *ngIf="deliveryTime != 'Delivery Time...'">&#10003; Delivery Time</small>
   </div>
   <div class="form-group">
     <select class="custom-select no-border" id="inlineFormCustomSelect" [(ngModel)]="currency" name="currency">
       <option *ngFor="let i of currencyItems" [value]="i">{{i}}</option>
     </select>
-    <small id="emailHelp" class="form-text boxLabel" *ngIf= "currency != 'Currency...'">&#10003; Currency</small>
+    <small id="emailHelp" class="form-text boxLabel" *ngIf="currency != 'Currency...'">&#10003; Currency</small>
   </div>
 
-  <button type="submit" class="btn btn-primary" (click)="calculateRates()"
-  [disabled]="userInputs.amount == 0 || soureOfFunding == 'Source of funding...' || deliveryMethod == 'Delivery Method...' || deliveryTime == 'Delivery Time...' || currency == 'Currency...' ">Submit</button>
-  <button type="reset" class="btn btn-default" value="Reset">Reset</button>
+  <button type="submit" class="btn btn-primary" (click)="calculateRates()" [disabled]="userInputs.amount < 1 || soureOfFunding == 'Source of funding...' || deliveryMethod == 'Delivery Method...' || deliveryTime == 'Delivery Time...' || currency == 'Currency...' ">Submit</button>
+  <button type="reset" class="btn btn-default" value="Reset" (click) = "reset()">Reset</button>
 </form>
 
 <div class="row" style="margin-top: 3%;">
   <div class="col-md-2"></div>
   <div class="col-md-8">
 
-    <div class="companies" *ngIf="FXList">
+    <div class="companies" *ngIf="showTable">
       <table class="table">
         <thead class="h">
           <tr class="h">
@@ -54,28 +53,24 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="companies" *ngFor="let company of FXList">
+          <tr class="companies" *ngFor="let company of statisticsFX.data">
             <ng-container>
-              <td>{{company.data.name}}</td>
-              <td>{{company.data.sendAmount | number:'1.2-2'}}</td>
-              <td>{{company.data.youPay | number:'1.2-2'}}</td>
-              <td>{{company.data.theyGet | number:'1.2-2'}}</td>
-              <td>{{company.data.fee | number:'1.2-2'}}</td>
-              <td>{{company.data.trueCost | number:'1.2-2'}}</td>
-              <td>{{company.data.trueCostPercentage | number:'1.2-4'}}% </td>
+              <td>{{company.name}}</td>
+              <td>{{company.sendAmount | number:'1.2-2'}}</td>
+              <td>{{company.youPay | number:'1.2-2'}}</td>
+              <td>{{company.theyGet | number:'1.2-2'}}</td>
+              <td>{{company.fee | number:'1.2-2'}}</td>
+              <td>{{company.trueCost | number:'1.2-2'}}</td>
+              <td>{{company.trueCostPercentage | number:'1.2-4'}}% </td>
             </ng-container>
           </tr>
         </tbody>
       </table>
     </div>
 
+
   </div>
   <div class="col-md-2">
 
   </div>
 </div>
-
-
-
-
-
