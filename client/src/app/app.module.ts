@@ -22,6 +22,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { MedianService } from './shared/services/median.service';
+import { StatisticsService } from './shared/services/statistics.service';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { MedianService } from './shared/services/median.service';
     TransferwiseService,
     WesternunionService,
     XoomService,
+    StatisticsService,
   ],
   bootstrap: [AppComponent]
 })

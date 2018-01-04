@@ -10,6 +10,8 @@ Install [**MongoDb**](http://www.mongodb.org/) in order to run the app with the 
 
 Install [**Nodemon**](https://github.com/remy/nodemon) to run node.
 
+Install Angular CLI: `npm i -g @angular/cli`
+
 # Run it
 
 This app requires *three* servers
@@ -25,11 +27,12 @@ Start them separately.
 Assuming that the `MongoDb` is installed on your machine.
 * open a terminal/command window
 * run `c:\Program Files\MongoDB\Server\3.4\bin\mongod.exe` (This might be different on your machine)
+* Make sure that the database is running at `127.0.0.1:27017`
 
 ## Start the backend data server
 
 * open a terminal or command window
-* go to the `backend` directory
+* go to the `server` directory
 * run `npm install` (Only the first time)
 * run `nodemon`
 
