@@ -2,6 +2,7 @@ var express = require('express')
 
 var router = express.Router()
 
+
 var MoniesController = require('../../controllers/statistics/monies.controller');
 var TransferwiseController = require('../../controllers/statistics/transferwise.controller');
 var XoomController = require('../../controllers/statistics/xoom.controller');
@@ -14,7 +15,9 @@ var WesternunionController = require('../../controllers/statistics/westernunion.
 var XoomController = require('../../controllers/statistics/xoom.controller');
 var SharedmoneyController = require('../../controllers/statistics/sharedmoney.controller');
 
+var StatisticsController  = require('../../controllers/statistic.controller');
 
+// Calculate the fx rate of each company separatly in different requests
 router.post('/monies', MoniesController.calculateStats)
 router.post('/transferwise', TransferwiseController.calculateStats)
 router.post('/xoom', XoomController.calculateStats)
@@ -26,5 +29,7 @@ router.post('/sendwyre', SendwyreController.calculateStats)
 router.post('/sharedmoney', SharedmoneyController.calculateStats)
 router.post('/westernunion', WesternunionController.calculateStats)
 
+// Calculate the fx rate of all the company in one request
+router.post('/', StatisticsController.calculateStats)
 
 module.exports = router;
