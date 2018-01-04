@@ -34,7 +34,7 @@ Assuming that the `MongoDb` is installed on your machine.
 * open a terminal or command window
 * go to the `server` directory
 * run `npm install` (Only the first time)
-* run `nodemon`
+* run `nodemon`   OR   run `node app.js`
 
 
 The terminal window tells you that the server is running
