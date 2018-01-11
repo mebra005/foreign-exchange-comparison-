@@ -24,6 +24,8 @@ exports.calculateStats = async function (userInputs) {
     // Validation for source of funding, delivery method, Maximum limit
     if (!(company.deliveryMethod.includes(userInputs.deliveryMethod) && company.source.includes(userInputs.source)) || userInputs.amount > company.maxLimit) {
         return
+    } else if (userInputs.deliveryTime == 'Same Day') {
+        return
     } else {
 
         // checks to see if the fee is included in the amount the user pays or user has to pay fees on top of the amount.

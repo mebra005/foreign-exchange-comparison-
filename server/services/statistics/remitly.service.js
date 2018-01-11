@@ -26,6 +26,8 @@ exports.calculateStats = async function (userInputs) {
     // Validation
     if (!(company.deliveryMethod.includes(userInputs.deliveryMethod) && company.source.includes(userInputs.source)) || userInputs.amount > company.maxLimit) {
         return
+    } else if (userInputs.deliveryTime == 'Same Day' || userInputs.deliveryTime == 'Less than 2 days') {
+        return
     } else {
 
 

@@ -33,7 +33,14 @@ exports.calculateStats = async function (userInputs) {
         if (userInputs.source == 'Debit Card') {
             _this.fee = fee;
         } else {
-            _this.fee = (userInputs.amount * CREDIT_CHARGE) + 2.99;
+            if (userInputs.amount % 100 == 0) {
+                _this.fee = (userInputs.amount * CREDIT_CHARGE) + 2.99;
+            } else {
+                var temp = 100 - (userInputs.amount % 100);
+                userInputs.amount = userInputs.amount + temp;
+                _this.fee = (userInputs.amount * CREDIT_CHARGE) + 2.99;
+            }
+
         }
 
         // checks to see if the fee is included in the amount the user pays or user has to pay fees on top of the amount.

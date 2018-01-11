@@ -1,4 +1,4 @@
-var Statistics = require('../services/statistics/statistics.service')
+var Statistics = require('../services/statistics.service')
 
 exports.calculateStats = async function (req, res, next) {
 
