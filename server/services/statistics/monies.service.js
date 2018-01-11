@@ -10,6 +10,7 @@ var sendAmount = 0;
 var fee = 4.99;
 var trueCost = 0;
 var trueCostPercentage = 0;
+var basisPoint = 0;
 const MONIES_ID = '5a32b716a2aee00f70efa35e'
 const CREDIT_CHARGE = 0;  // to be determined
 const AGENT_CASHOUT = 0;  // to be determined 
@@ -52,6 +53,10 @@ exports.calculateStats = async function (userInputs) {
             //MXN CURRENCY
             case "MXN":
 
+                // this will ignore the company fx rate and will calculate the fx rate base on the median rate and basis point
+                basisPoint = median.median.mxn / 10000;
+                company.currency.mxn = median.median.mxn - (basisPoint * 75);
+
                 // 
                 _this.theyGet = userInputs.amount * company.currency.mxn;
 
@@ -84,6 +89,11 @@ exports.calculateStats = async function (userInputs) {
                 break;
             //PHP CURRENCY    
             case "PHP":
+
+                // this will ignore the company fx rate and will calculate the fx rate base on the median rate and basis point
+                //75 basis point
+                basisPoint = median.median.php / 10000;
+                company.currency.php = median.median.php - (basisPoint * 75);
 
                 _this.theyGet = userInputs.amount * company.currency.php;
 

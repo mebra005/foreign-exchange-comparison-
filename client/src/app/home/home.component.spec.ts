@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { MedianService } from '../shared/services/median.service';
+import { StatisticsService } from './../shared/services/statistics.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -44,6 +45,7 @@ describe('HomeComponent', () => {
         TransferwiseService,
         WesternunionService,
         XoomService,
+        StatisticsService,
         { provide: Router }
       ],
     })
