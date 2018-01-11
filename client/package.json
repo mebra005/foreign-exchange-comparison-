@@ -1,6 +1,8 @@
 {
   "name": "client",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "author": "Milad Ebrahimi",
+  "description": "Foreign Exchange Comparison",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
